@@ -1,0 +1,4 @@
+#Wed Apr 11 11:38:57 MDT 2018
+base.0=/Users/machinatron/Documents/Programming/android-Camera2Video/Application/build/intermediates/transforms/dexMerger/debug/3
+path.0=classes.dex
+renamed.0=classes.dex

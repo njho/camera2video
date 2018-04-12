@@ -65,7 +65,9 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class Camera2VideoFragment extends Fragment
-        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback, MediaRecorder.OnInfoListener {
+        implements FragmentCompat.OnRequestPermissionsResultCallback, MediaRecorder.OnInfoListener {
+
+    //        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback, MediaRecorder.OnInfoListener {
 
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
@@ -188,16 +190,21 @@ public class Camera2VideoFragment extends Fragment
 
         @Override
         public void onOpened(@NonNull CameraDevice cameraDevice) {
+            Log.d(TAG, "ONOPENED");
             mCameraDevice = cameraDevice;
             startPreview();
             mCameraOpenCloseLock.release();
-            if (null != mTextureView) {
-                configureTransform(mTextureView.getWidth(), mTextureView.getHeight());
-            }
+            //REMOVED APRIL 12 AS ONLY USED FOR CONFIGURING PREVIEW FOR VIDEO DATA
+//            if (null != mTextureView) {
+//                configureTransform(mTextureView.getWidth(), mTextureView.getHeight());
+//            }
+            startRecordingVideo();
         }
 
         @Override
         public void onDisconnected(@NonNull CameraDevice cameraDevice) {
+            Log.d(TAG, "ONDISCONNECTED");
+
             mCameraOpenCloseLock.release();
             cameraDevice.close();
             mCameraDevice = null;
@@ -205,6 +212,8 @@ public class Camera2VideoFragment extends Fragment
 
         @Override
         public void onError(@NonNull CameraDevice cameraDevice, int error) {
+            Log.d(TAG, "ONERROR");
+
             mCameraOpenCloseLock.release();
             cameraDevice.close();
             mCameraDevice = null;
@@ -272,67 +281,91 @@ public class Camera2VideoFragment extends Fragment
         }
     }
 
+    //ONATTACH IS CREATED BY ME
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "ONATTACH");
+        startBackgroundThread();
+        openCamera(1, 1);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "ONCREATEVIEW");
+
+        //===========================APRIL 12=========================>
         return inflater.inflate(R.layout.fragment_camera2_video, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-        mButtonVideo = (Button) view.findViewById(R.id.video);
-        mButtonVideo.setOnClickListener(this);
-        view.findViewById(R.id.info).setOnClickListener(this);
+        Log.d(TAG, "ONVIEWCREATED");
+
+//        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+//        mButtonVideo = (Button) view.findViewById(R.id.video);
+//        mButtonVideo.setOnClickListener(this);
+//        view.findViewById(R.id.info).setOnClickListener(this);
+
+
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        startBackgroundThread();
-        if (mTextureView.isAvailable()) {
-            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
-        } else {
-            //April 12, 2018: Surfaces removed
-            //mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
-        }
+        Log.d(TAG, "ONRESUME");
+
+//        startBackgroundThread();
+//        if (mTextureView.isAvailable()) {
+//            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+//        } else {
+//            //April 12, 2018: Surfaces removed
+//            //mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+//        }
     }
 
     @Override
     public void onPause() {
+        Log.d(TAG, "ONPAUSE");
+
         closeCamera();
         stopBackgroundThread();
         super.onPause();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.video: {
-                if (mIsRecordingVideo) {
-                    stopRecordingVideo();
-                } else {
-                    startRecordingVideo();
-                }
-                break;
-            }
-            case R.id.info: {
-                Activity activity = getActivity();
-                if (null != activity) {
-                    new AlertDialog.Builder(activity)
-                            .setMessage(R.string.intro_message)
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show();
-                }
-                break;
-            }
-        }
-    }
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.video: {
+//                if (mIsRecordingVideo) {
+//                    stopRecordingVideo();
+//                } else {
+//                    startRecordingVideo();
+//                }
+//                break;
+//            }
+//            case R.id.info: {
+//                Activity activity = getActivity();
+//                if (null != activity) {
+//                    new AlertDialog.Builder(activity)
+//                            .setMessage(R.string.intro_message)
+//                            .setPositiveButton(android.R.string.ok, null)
+//                            .show();
+//                }
+//                break;
+//            }
+//        }
+//    }
 
     /**
      * Starts a background thread and its {@link Handler}.
      */
     private void startBackgroundThread() {
+        Log.d(TAG, "STARTBACKGROUNDTHREAD");
+
         mBackgroundThread = new HandlerThread("CameraBackground");
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
@@ -342,14 +375,18 @@ public class Camera2VideoFragment extends Fragment
      * Stops the background thread and its {@link Handler}.
      */
     private void stopBackgroundThread() {
-        mBackgroundThread.quitSafely();
-        try {
-            mBackgroundThread.join();
-            mBackgroundThread = null;
-            mBackgroundHandler = null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Log.d(TAG, "STOPBACKGROUNDTHREAD" + mBackgroundThread);
+        if (mBackgroundThread != null) {
+            mBackgroundThread.quitSafely();
+            try {
+                mBackgroundThread.join();
+                mBackgroundThread = null;
+                mBackgroundHandler = null;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     /**
@@ -443,6 +480,9 @@ public class Camera2VideoFragment extends Fragment
             mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
                     width, height, mVideoSize);
 
+            Log.d(TAG, "Does it get here?");
+            /* REMOVED APRIL 12 AS ONLY USED FOR TRANSFORMING DATA FOR VIEW PREVIEW
+
             int orientation = getResources().getConfiguration().orientation;
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mTextureView.setAspectRatio(mPreviewSize.getWidth(), mPreviewSize.getHeight());
@@ -450,8 +490,11 @@ public class Camera2VideoFragment extends Fragment
                 mTextureView.setAspectRatio(mPreviewSize.getHeight(), mPreviewSize.getWidth());
             }
             configureTransform(width, height);
+            */
+
             mMediaRecorder = new MediaRecorder();
             manager.openCamera(cameraId, mStateCallback, null);
+
         } catch (CameraAccessException e) {
             Toast.makeText(activity, "Cannot access the camera.", Toast.LENGTH_SHORT).show();
             activity.finish();
@@ -466,6 +509,8 @@ public class Camera2VideoFragment extends Fragment
     }
 
     private void closeCamera() {
+        Log.d(TAG, "CLOSECAMERA");
+
         try {
             mCameraOpenCloseLock.acquire();
             closePreviewSession();
@@ -492,14 +537,15 @@ public class Camera2VideoFragment extends Fragment
      * Start the camera preview.
      */
     private void startPreview() {
-        if (null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize) {
+        if (null == mCameraDevice) {
+            //REMOVED AS NEEDED ONLY FOR WHATEVER  || !mTextureView.isAvailable() || null == mPreviewSize
             return;
         }
         try {
             closePreviewSession();
-            SurfaceTexture texture = mTextureView.getSurfaceTexture();
-            assert texture != null;
-            texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+//            SurfaceTexture texture = mTextureView.getSurfaceTexture();
+//            assert texture != null;
+//            texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
             mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
 
 //April 11. Remove preview surface
@@ -513,7 +559,7 @@ public class Camera2VideoFragment extends Fragment
                         @Override
                         public void onConfigured(@NonNull CameraCaptureSession session) {
                             mPreviewSession = session;
-                            updatePreview();
+                            //updatePreview();
                         }
 
                         @Override
@@ -550,48 +596,51 @@ public class Camera2VideoFragment extends Fragment
         builder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
     }
 
-    /**
-     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
-     * This method should not to be called until the camera preview size is determined in
-     * openCamera, or until the size of `mTextureView` is fixed.
-     *
-     * @param viewWidth  The width of `mTextureView`
-     * @param viewHeight The height of `mTextureView`
-     */
-    private void configureTransform(int viewWidth, int viewHeight) {
-        Activity activity = getActivity();
-        if (null == mTextureView || null == mPreviewSize || null == activity) {
-            return;
-        }
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-        Matrix matrix = new Matrix();
-        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
-        RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
-        float centerX = viewRect.centerX();
-        float centerY = viewRect.centerY();
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
-            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
-            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
-            float scale = Math.max(
-                    (float) viewHeight / mPreviewSize.getHeight(),
-                    (float) viewWidth / mPreviewSize.getWidth());
-            matrix.postScale(scale, scale, centerX, centerY);
-            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
-        }
-        mTextureView.setTransform(matrix);
-    }
+//    /**
+//     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
+//     * This method should not to be called until the camera preview size is determined in
+//     * openCamera, or until the size of `mTextureView` is fixed.
+//     *
+//     * @param viewWidth  The width of `mTextureView`
+//     * @param viewHeight The height of `mTextureView`
+//     */
+//
+    //=======================>APRIL 12 ==================>
+    //MY UNDERSTANDING IS THIS IS ONLY FOR CONFIGURING TRANSFORM FOR PREVIEW PURPOSES
+//    private void configureTransform(int viewWidth, int viewHeight) {
+//        Activity activity = getActivity();
+//        if (null == mTextureView || null == mPreviewSize || null == activity) {
+//            return;
+//        }
+//        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+//        Matrix matrix = new Matrix();
+//        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
+//        RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
+//        float centerX = viewRect.centerX();
+//        float centerY = viewRect.centerY();
+//        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+//            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
+//            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
+//            float scale = Math.max(
+//                    (float) viewHeight / mPreviewSize.getHeight(),
+//                    (float) viewWidth / mPreviewSize.getWidth());
+//            matrix.postScale(scale, scale, centerX, centerY);
+//            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+//        }
+//        mTextureView.setTransform(matrix);
+//    }
 
     //===========================APRIL 12=================================>
     public void onInfo(MediaRecorder mr, int what, int extra) {
         if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
-            Log.v(TAG,"Maximum Duration Reached, Call stopRecordingVideo()");
+            Log.v(TAG, "Maximum Duration Reached, Call stopRecordingVideo()");
             stopRecordingVideo();
         }
     }
     //====================================================================>
 
 
-    private void setUpMediaRecorder() throws IOException   {
+    private void setUpMediaRecorder() throws IOException {
         final Activity activity = getActivity();
         if (null == activity) {
             return;
@@ -628,17 +677,19 @@ public class Camera2VideoFragment extends Fragment
                 + System.currentTimeMillis() + ".mp4";
     }
 
-    private void startRecordingVideo() {
-        if (null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize) {
+    public void startRecordingVideo() {
+        Log.d(TAG, "startRecordingVideo" + mCameraDevice);
+        if (null == mCameraDevice) {
+            //Removed as no longer required without view || !mTextureView.isAvailable() || null == mPreviewSize
             return;
         }
         try {
-            closePreviewSession();
+//            closePreviewSession();
             setUpMediaRecorder();
-            SurfaceTexture texture = mTextureView.getSurfaceTexture();
-            assert texture != null;
-            texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
-            mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
+//            SurfaceTexture texture = mTextureView.getSurfaceTexture();
+//            assert texture != null;
+//            texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+//            mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
             List<Surface> surfaces = new ArrayList<>();
 
 //            Set up Surface for the camera preview
@@ -659,17 +710,22 @@ public class Camera2VideoFragment extends Fragment
                 public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
                     mPreviewSession = cameraCaptureSession;
                     updatePreview();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // UI
-                            mButtonVideo.setText(R.string.stop);
-                            mIsRecordingVideo = true;
 
-                            // Start recording
-                            mMediaRecorder.start();
-                        }
-                    });
+                    //Moved mMediaRecorder.start() out here April 12
+                    mIsRecordingVideo = true;
+                    mMediaRecorder.start();
+
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // UI
+//                            mButtonVideo.setText(R.string.stop);
+//                            mIsRecordingVideo = true;
+//
+//                            // Start recording
+//                            mMediaRecorder.start();
+//                        }
+//                    });
                 }
 
                 @Override
@@ -696,9 +752,9 @@ public class Camera2VideoFragment extends Fragment
     private void stopRecordingVideo() {
         // UI
         mIsRecordingVideo = false;
-        mButtonVideo.setText(R.string.record);
+//        mButtonVideo.setText(R.string.record);
         // Stop recording
-        mMediaRecorder.stop();
+//        mMediaRecorder.stop();
         mMediaRecorder.reset();
 
         Activity activity = getActivity();
@@ -708,7 +764,7 @@ public class Camera2VideoFragment extends Fragment
             Log.d(TAG, "Video saved: " + mNextVideoAbsolutePath);
         }
         mNextVideoAbsolutePath = null;
-        startPreview();
+//        startPreview();
     }
 
     /**

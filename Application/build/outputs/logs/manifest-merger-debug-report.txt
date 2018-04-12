@@ -1,0 +1,107 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:1-43:12
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:1-43:12
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:1-43:12
+MERGED from [com.android.support:support-v13:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/c0205f14aab267e41cc82c98582e9978/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/186d8d4b2bc403f5f1732e8db452087d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.0.2.aar/033b5152ab0a3d31b6865e6fd7429ce5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/fdf4ce13fa7269aa3315399c2a5bc396/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/6d9ec0681f46ddf946a558d8160237be/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/a523b72a86b678b9f807de2fe51e4537/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/b9cb67a3b7a151fc3f285d8a283ed9d5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/9f9cc8723f70991576d06f3a9533252f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/c98cfcda929fe5ea2ae566d09939ad30/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/e06404bc387982760306f28f9e381703/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/5d8069411a446972cdf032673461af93/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/d17f3ccfc3a64f01bd1fc26b79321b9f/AndroidManifest.xml:17:1-24:12
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:1-43:12
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:1-43:12
+	package
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:18:5-47
+	android:versionName
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:20:5-30
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:17:11-69
+	android:versionCode
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:19:5-28
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+uses-permission#android.permission.CAMERA
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:24:5-64
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:24:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:25:5-70
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:25:22-68
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:26:5-80
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:26:22-78
+application
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:28:5-41:19
+	android:label
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:29:9-41
+	android:icon
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:30:9-45
+	android:allowBackup
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:28:18-44
+	android:theme
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:31:9-45
+activity#com.example.android.camera2video.CameraActivity
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:33:9-39:20
+	android:label
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:34:19-51
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:33:19-49
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:35:13-38:29
+action#android.intent.action.MAIN
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:36:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml:37:27-74
+uses-sdk
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+MERGED from [com.android.support:support-v13:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/c0205f14aab267e41cc82c98582e9978/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v13-27.0.2.aar/c0205f14aab267e41cc82c98582e9978/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/186d8d4b2bc403f5f1732e8db452087d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/186d8d4b2bc403f5f1732e8db452087d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.0.2.aar/033b5152ab0a3d31b6865e6fd7429ce5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.0.2.aar/033b5152ab0a3d31b6865e6fd7429ce5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/fdf4ce13fa7269aa3315399c2a5bc396/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/fdf4ce13fa7269aa3315399c2a5bc396/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/6d9ec0681f46ddf946a558d8160237be/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/6d9ec0681f46ddf946a558d8160237be/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/a523b72a86b678b9f807de2fe51e4537/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/a523b72a86b678b9f807de2fe51e4537/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/b9cb67a3b7a151fc3f285d8a283ed9d5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/b9cb67a3b7a151fc3f285d8a283ed9d5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/9f9cc8723f70991576d06f3a9533252f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/9f9cc8723f70991576d06f3a9533252f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/c98cfcda929fe5ea2ae566d09939ad30/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/c98cfcda929fe5ea2ae566d09939ad30/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/e06404bc387982760306f28f9e381703/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/e06404bc387982760306f28f9e381703/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/5d8069411a446972cdf032673461af93/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/5d8069411a446972cdf032673461af93/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/d17f3ccfc3a64f01bd1fc26b79321b9f/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/machinatron/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/d17f3ccfc3a64f01bd1fc26b79321b9f/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		ADDED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
+		INJECTED from /Users/machinatron/Documents/Programming/android-Camera2Video/Application/src/main/AndroidManifest.xml
