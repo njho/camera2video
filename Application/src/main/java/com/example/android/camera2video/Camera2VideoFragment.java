@@ -65,14 +65,14 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class Camera2VideoFragment extends Fragment
-        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback {
+        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback, MediaRecorder.OnInfoListener {
 
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
     private static final SparseIntArray DEFAULT_ORIENTATIONS = new SparseIntArray();
     private static final SparseIntArray INVERSE_ORIENTATIONS = new SparseIntArray();
 
-    private static final String TAG = "Camera2VideoFragment";
+    private static final String TAG = "VIDEOPACKAGE";
     private static final int REQUEST_VIDEO_PERMISSIONS = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
 
@@ -120,31 +120,31 @@ public class Camera2VideoFragment extends Fragment
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
      * {@link TextureView}.
      */
-    private TextureView.SurfaceTextureListener mSurfaceTextureListener
-            = new TextureView.SurfaceTextureListener() {
-
-        @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture,
-                                              int width, int height) {
-            openCamera(width, height);
-        }
-
-        @Override
-        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
-                                                int width, int height) {
-            configureTransform(width, height);
-        }
-
-        @Override
-        public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
-            return true;
-        }
-
-        @Override
-        public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
-        }
-
-    };
+//    private TextureView.SurfaceTextureListener mSurfaceTextureListener
+//            = new TextureView.SurfaceTextureListener() {
+//
+//        @Override
+//        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture,
+//                                              int width, int height) {
+//            openCamera(width, height);
+//        }
+//
+//        @Override
+//        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
+//                                                int width, int height) {
+//            configureTransform(width, height);
+//        }
+//
+//        @Override
+//        public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+//            return true;
+//        }
+//
+//        @Override
+//        public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+//        }
+//
+//    };
 
     /**
      * The {@link android.util.Size} of camera preview.
@@ -293,7 +293,8 @@ public class Camera2VideoFragment extends Fragment
         if (mTextureView.isAvailable()) {
             openCamera(mTextureView.getWidth(), mTextureView.getHeight());
         } else {
-            mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+            //April 12, 2018: Surfaces removed
+            //mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
         }
     }
 
@@ -483,6 +484,10 @@ public class Camera2VideoFragment extends Fragment
         }
     }
 
+    /*Dummy Surfaces*/
+    private SurfaceTexture mDummyPreview = new SurfaceTexture(1);
+    private Surface mDummySurface = new Surface(mDummyPreview);
+
     /**
      * Start the camera preview.
      */
@@ -497,10 +502,12 @@ public class Camera2VideoFragment extends Fragment
             texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
             mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
 
-            Surface previewSurface = new Surface(texture);
-            mPreviewBuilder.addTarget(previewSurface);
-
-            mCameraDevice.createCaptureSession(Collections.singletonList(previewSurface),
+//April 11. Remove preview surface
+//            Surface previewSurface = new Surface(texture);
+//            mPreviewBuilder.addTarget(previewSurface);
+//
+// April 11             mCameraDevice.createCaptureSession(Collections.singletonList(previewSurface),
+            mCameraDevice.createCaptureSession(Collections.singletonList(mDummySurface),
                     new CameraCaptureSession.StateCallback() {
 
                         @Override
@@ -574,7 +581,17 @@ public class Camera2VideoFragment extends Fragment
         mTextureView.setTransform(matrix);
     }
 
-    private void setUpMediaRecorder() throws IOException {
+    //===========================APRIL 12=================================>
+    public void onInfo(MediaRecorder mr, int what, int extra) {
+        if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
+            Log.v(TAG,"Maximum Duration Reached, Call stopRecordingVideo()");
+            stopRecordingVideo();
+        }
+    }
+    //====================================================================>
+
+
+    private void setUpMediaRecorder() throws IOException   {
         final Activity activity = getActivity();
         if (null == activity) {
             return;
@@ -586,11 +603,13 @@ public class Camera2VideoFragment extends Fragment
             mNextVideoAbsolutePath = getVideoFilePath(getActivity());
         }
         mMediaRecorder.setOutputFile(mNextVideoAbsolutePath);
-        mMediaRecorder.setVideoEncodingBitRate(10000000);
+        mMediaRecorder.setVideoEncodingBitRate(2000000);
         mMediaRecorder.setVideoFrameRate(30);
+        mMediaRecorder.setMaxDuration(10000);
         mMediaRecorder.setVideoSize(mVideoSize.getWidth(), mVideoSize.getHeight());
         mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
         mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mMediaRecorder.setOnInfoListener(this);
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         switch (mSensorOrientation) {
             case SENSOR_ORIENTATION_DEFAULT_DEGREES:
@@ -622,12 +641,12 @@ public class Camera2VideoFragment extends Fragment
             mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
             List<Surface> surfaces = new ArrayList<>();
 
-            // Set up Surface for the camera preview
-            Surface previewSurface = new Surface(texture);
-            surfaces.add(previewSurface);
-            mPreviewBuilder.addTarget(previewSurface);
+//            Set up Surface for the camera preview
+//            Surface previewSurface = new Surface(texture);
+//            surfaces.add(previewSurface);
+//            mPreviewBuilder.addTarget(previewSurface);
 
-            // Set up Surface for the MediaRecorder
+            // Set up Surface for the MediaRecorder. You are telling the camera to inject it's information onto the mMediaRecorders surface.
             Surface recorderSurface = mMediaRecorder.getSurface();
             surfaces.add(recorderSurface);
             mPreviewBuilder.addTarget(recorderSurface);
